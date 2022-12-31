@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+        tools {
+        maven 'Maven_3_5_2'
+    }
 
     environment {
         registry = "467290638204.dkr.ecr.us-west-2.amazonaws.com/my-python-repo"
@@ -9,26 +13,40 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akannan1087/myPythonDockerRepo']]])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Xonnel50/springboot-app.git']])
+                
+            }
+        }
+    
+        stage('Build Jar') {
+            steps {
+                sh "mvn clean install"
+                
             }
         }
     
         stage ("Build image") {
             steps {
+                withDockerRegistry([credentialsId: "docker", url: ""]) {
                 script {
-                    docker.build registry
+                app = docker.build("asg")
                 }
             }
+        }
         }
         
         stage ("docker push") {
          steps {
              script {
-                sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 467290638204.dkr.ecr.us-west-2.amazonaws.com"
-                sh "docker push 467290638204.dkr.ecr.us-west-2.amazonaws.com/my-python-repo"
-                 
+                 docker.withRegistry('https://467290638204.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+                 app.push("latest")
+    /*
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 467290638204.dkr.ecr.us-east-1.amazonaws.com"
+                sh "docker push 467290638204.dkr.ecr.us-east-1.amazonaws.com/my-python-repo:latest"
+    */
              }
            }   
+        }
         }
         
         stage ("Kube Deploy") {
@@ -40,3 +58,4 @@ pipeline {
         }
     }
 }
+
