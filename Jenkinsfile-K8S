@@ -18,6 +18,13 @@ pipeline {
             }
         }
     
+    	stage('SonarQube') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.projectKey=SpringBoot -Dsonar.host.url=http://3.234.227.150:9000 -Dsonar.login=4f79d50fcee500efda558a80b64d2e84d333cfd9"
+                
+            }
+        }
+    	
         stage('Build Jar') {
             steps {
                 sh "mvn clean install"
