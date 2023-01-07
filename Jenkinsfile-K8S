@@ -20,8 +20,7 @@ pipeline {
     
     	stage('SonarQube') {
             steps {
-                sh "mvn sonar:sonar Dsonar.projectKey=maverick Dsonar.host.url=http://54.221.125.157:9000 Dsonar.login=cb2566a39ad057492e3e84fe5beed34c558c9343". 
-                
+                sh "mvn sonar:sonar Dsonar.projectKey=maverick Dsonar.host.url=http://54.221.125.157:9000 Dsonar.login=cb2566a39ad057492e3e84fe5beed34c558c9343"   
             }
         }
 	
