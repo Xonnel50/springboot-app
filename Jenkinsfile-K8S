@@ -20,7 +20,7 @@ pipeline {
     
     	stage('SonarQube') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.projectKey=SpringBoot -Dsonar.host.url=http://3.234.227.150:9000 -Dsonar.login=4f79d50fcee500efda558a80b64d2e84d333cfd9"
+                sh "mvn sonar:sonar -Dsonar.projectKey=SpringBoot -Dsonar.host.url=http://3.234.227.150:9000 -Dsonar.login=7f1a5a84a9192ef067a7c459e3c06c9583789fd7"
                 
             }
         }
