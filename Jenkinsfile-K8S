@@ -68,7 +68,7 @@ pipeline {
     	    input message:'Approve deployment?', submitter: 'Lennox'
 }
 */	
-        stage ("Kube Deploy Xonnel") {
+        stage ("Kube Xonnel") {
 	    input
             {
                 message "Do you want to proceed for deployment ?"
@@ -78,7 +78,7 @@ pipeline {
     		sh "kubectl apply -f eks-deploy-from-ecr.yaml"
 		}
 	}
-	 stage ("Kube Deploy Bullfrig") {
+	 stage ("Kube Bullfrig") {
 	    steps {
 		withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'Bullfrig', contextName: '', credentialsId: 'Bullfrig-K8S', namespace: 'bullfrig', serverUrl: 'https://03774D0FDF30788EFDEF17BAD89C62FE.gr7.us-east-1.eks.amazonaws.com']]) {
     		sh "kubectl apply -f eks-deploy-from-ecr.yaml"
