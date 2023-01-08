@@ -73,7 +73,7 @@ pipeline {
             {
                 message "Do you want to proceed for deployment ?"
             }
-	    stage(Deploy to Multiple Clusters) {
+	    stage(Deploy Multiple Clusters) {
 	    parallel{
             steps {
 		withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'Xonnel', contextName: '', credentialsId: 'Xonnel-K8S', namespace: 'bullfrig', serverUrl: 'https://465C334935D486685E6E65159E742AB0.gr7.us-east-1.eks.amazonaws.com']]) {
