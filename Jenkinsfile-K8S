@@ -74,8 +74,8 @@ pipeline {
                 message "Do you want to proceed for deployment ?"
             }
             steps {
-		withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'Xonnel', contextName: '', credentialsId: 'Xonnel-K8S', namespace: 'bullfrig', serverUrl: 'https://465C334935D486685E6E65159E742AB0.gr7.us-east-1.eks.amazonaws.com'], [caCertificate: '', clusterName: 'Bullfrig', contextName: '', credentialsId: 'Bullfrig-K8S', namespace: 'bullfrig', serverUrl: 'https://03774D0FDF30788EFDEF17BAD89C62FE.gr7.us-east-1.eks.amazonaws.com']]) {
-    		sh "kubectl apply -f eks-deploy-from-ecr.yaml"
+		withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'Xonnel', contextName: 'arn:aws:eks:us-east-1:467290638204:cluster/Xonnel', credentialsId: 'Xonnel-K8S', namespace: 'kube-system', serverUrl: 'https://465C334935D486685E6E65159E742AB0.gr7.us-east-1.eks.amazonaws.com'], [caCertificate: '', clusterName: 'Bullfrig', contextName: 'arn:aws:eks:us-east-1:467290638204:cluster/Bullfrig', credentialsId: 'Bullfrig-K8S', namespace: 'kube-system', serverUrl: 'https://03774D0FDF30788EFDEF17BAD89C62FE.gr7.us-east-1.eks.amazonaws.com']]) {
+   		sh "kubectl apply -f eks-deploy-from-ecr.yaml"
 		}
 	}
 	
