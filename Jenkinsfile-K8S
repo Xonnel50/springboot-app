@@ -74,10 +74,16 @@ pipeline {
                 message "Do you want to proceed for deployment ?"
             }
             steps {
+		withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'Bullfrig', contextName: '', credentialsId: 'Bullfrig-K8S', namespace: 'kube-system', serverUrl: 'https://03774D0FDF30788EFDEF17BAD89C62FE.gr7.us-east-1.eks.amazonaws.com']]) {
+    		sh "kubectl apply -f eks-deploy-from-ecr.yaml"
+		}
+	}
+/*
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Bullfrig-K8S', namespace: '', serverUrl: '') {
                  sh "kubectl apply -f eks-deploy-from-ecr.yaml"
                 }
             }
+*/
         }
              
 
